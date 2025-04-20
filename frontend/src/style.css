@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 /* dark mode looking scrollbar */
 ::-webkit-scrollbar {

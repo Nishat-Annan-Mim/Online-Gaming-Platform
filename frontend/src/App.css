@@ -1,42 +1,51 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App.css */
+@import "tailwindcss";
+@plugin "daisyui";
+#main-background {
+  background-image: url("https://cdn.pixabay.com/photo/2018/01/20/19/30/dice-3095227_1280.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-family: sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
+@keyframes red-sparkle {
   from {
-    transform: rotate(0deg);
+    text-shadow: 0 0 4px #ff0000, 0 0 8px #b22222, 0 0 15px #8b0000;
   }
   to {
-    transform: rotate(360deg);
+    text-shadow: 0 0 8px #ff4c4c, 0 0 16px #ff1c1c, 0 0 30px #ff0000;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@keyframes blue-glow {
+  from {
+    text-shadow: 0 0 2px #00bfff, 0 0 4px #1e90ff, 0 0 8px #4169e1;
+  }
+  to {
+    text-shadow: 0 0 4px #1e90ff, 0 0 8px #4682b4, 0 0 12px #5f9ea0;
   }
 }
 
-.card {
-  padding: 2em;
+/* dark mode looking scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.read-the-docs {
-  color: #888;
+::-webkit-scrollbar-track {
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #121212;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #242424;
 }
