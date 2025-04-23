@@ -1,0 +1,60 @@
+/* Landing.module.css */
+
+/* Wrapper for the landing page */
+/* .landing-body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0a4a4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+} */
+
+/* Nav and footer placeholders */
+.nav-placeholder {
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.footer-placeholder {
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Main content section */
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Container for buttons */
+.button-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  text-align: center;
+}
+
+/* Glowing buttons */
+.action-button {
+  padding: 30px 60px;
+  font-size: 2.7rem;
+  background: linear-gradient(135deg, #ff512f, #dd2476);
+  border: brown;
+  border-radius: 16px;
+  color: rgb(75, 31, 157);
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(43, 39, 39, 0.4);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.action-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(255, 81, 47, 0.6);
+}
