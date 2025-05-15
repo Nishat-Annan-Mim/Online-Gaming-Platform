@@ -8,7 +8,10 @@ import EmailSend from "./pages/emailsend/EmailSend";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
-
+import GamePage from "./pages/gamepage/GamePage"; // Import GamePage
+import MatchGame from "./pages/matchgame/MatchGame"; // Import MatchGame
+import Tictactoe from "./pages/tictactoepage/Tictactoe"; // Import Tictactoe
+import Playonlinegame from "./pages/playonlinegame/Playonlinegame"; // Import Playonlinegame
 function App() {
   const { authUser } = useAuthContext();
 
@@ -35,6 +38,23 @@ function App() {
           <Route
             path="/signup"
             element={authUser ? <Navigate to="/" /> : <SignUp />}
+          />
+          <Route
+            path="/gamepage"
+            element={authUser ? <GamePage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/matchgame"
+            element={authUser ? <MatchGame /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/playonlinegame"
+            element={authUser ? <Playonlinegame /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/tictactoe"
+            element={authUser ? <Tictactoe /> : <Navigate to="/login" />}
           />
         </Routes>
         <Toaster />

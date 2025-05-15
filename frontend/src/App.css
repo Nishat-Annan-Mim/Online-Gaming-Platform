@@ -49,3 +49,55 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #242424;
 }
+
+@keyframes blink {
+  0%,
+  100% {
+    color: #c12708;
+  } /* red-400 */
+  50% {
+    color: #f3740c;
+  } /* orange-400 */
+}
+
+.blink-text {
+  animation: blink 1s infinite;
+}
+
+/* Glass Effect for Background */
+.glass-background {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Optional: Adding a gradient for extra effect */
+.bg-glass {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(0, 0, 0, 0.1)
+  );
+}
+
+/* Glowing Text Animation */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 15px #ff0000,
+      0 0 20px #ff0000, 0 0 25px #ff0000, 0 0 30px #ff0000, 0 0 35px #ff0000;
+  }
+  50% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000,
+      0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000;
+  }
+  100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 15px #ff0000,
+      0 0 20px #ff0000, 0 0 25px #ff0000, 0 0 30px #ff0000, 0 0 35px #ff0000;
+  }
+}
+
+.glow-text {
+  animation: glow 1.5s ease-in-out infinite;
+  color: #fff;
+  font-weight: bold;
+}

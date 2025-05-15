@@ -11,7 +11,13 @@ const Landing = () => {
 
       <main className={styles["main-content"]}>
         <div className={styles["button-container"]}>
-          <button className={styles["action-button"]}>Play Game</button>
+          <button
+            className={styles["action-button"]}
+            onClick={() => navigate("/gamepage")}
+          >
+            Play Game
+          </button>
+
           <button
             className={styles["action-button"]}
             onClick={() => navigate("/talkhome")}
