@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Landing.module.css"; // ✅ Correct import
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -11,6 +12,13 @@ const Landing = () => {
 
       <main className={styles["main-content"]}>
         <div className={styles["button-container"]}>
+          <button
+            className={styles["action-button"]}
+            onClick={() => navigate("/admin")}
+          >
+            Admin Panel
+          </button>
+
           <button
             className={styles["action-button"]}
             onClick={() => navigate("/gamepage")}

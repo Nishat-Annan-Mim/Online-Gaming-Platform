@@ -12,6 +12,9 @@ import GamePage from "./pages/gamepage/GamePage"; // Import GamePage
 import MatchGame from "./pages/matchgame/MatchGame"; // Import MatchGame
 import Tictactoe from "./pages/tictactoepage/Tictactoe"; // Import Tictactoe
 import Playonlinegame from "./pages/playonlinegame/Playonlinegame"; // Import Playonlinegame
+import DownloadGame from "./pages/downloadgame/Downloadgame"; // Import DownloadGame
+import Admin from "./pages/admin/Admin"; // Import the Admin component :admin
+
 function App() {
   const { authUser } = useAuthContext();
 
@@ -44,6 +47,10 @@ function App() {
             element={authUser ? <GamePage /> : <Navigate to="/login" />}
           />
           <Route
+            path="/downloadgame"
+            element={authUser ? <DownloadGame /> : <Navigate to="/login" />}
+          />
+          <Route
             path="/matchgame"
             element={authUser ? <MatchGame /> : <Navigate to="/login" />}
           />
@@ -51,11 +58,15 @@ function App() {
             path="/playonlinegame"
             element={authUser ? <Playonlinegame /> : <Navigate to="/login" />}
           />
-
           <Route
             path="/tictactoe"
             element={authUser ? <Tictactoe /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/admin"
+            element={authUser ? <Admin /> : <Navigate to="/login" />}
+          />
+          {/* //admin er jonno */}
         </Routes>
         <Toaster />
       </div>

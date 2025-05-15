@@ -13,11 +13,12 @@ const GamePage = () => {
 
         <div className="flex flex-col space-y-6 w-full max-w-md">
           <button
-            onClick={() => navigate("/tictactoe")}
+            onClick={() => navigate("/downloadgame")}
             className="bg-pink-500 bg-opacity-80 hover:bg-opacity-100 hover:bg-yellow-600 text-white text-2xl font-semibold py-4 rounded-lg transition duration-300"
           >
-            Download Game
+            Go PlayStore & Download Game
           </button>
+
           {/* <button
             onClick={() => window.open("https://www.freegame.gg/", "_blank")}
             className="bg-red-500 bg-opacity-80 hover:bg-opacity-100 hover:bg-red-600 text-white text-2xl font-semibold py-4 rounded-lg transition duration-300"
