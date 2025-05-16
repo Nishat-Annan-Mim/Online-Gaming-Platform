@@ -14,6 +14,9 @@ import Tictactoe from "./pages/tictactoepage/Tictactoe"; // Import Tictactoe
 import Playonlinegame from "./pages/playonlinegame/Playonlinegame"; // Import Playonlinegame
 import DownloadGame from "./pages/downloadgame/Downloadgame"; // Import DownloadGame
 import Admin from "./pages/admin/Admin"; // Import the Admin component :admin
+import Payment from "./pages/payment/Payment";
+import Leaderboard from "./pages/leaderboard/Leaderboard";
+import Profile from "./pages/profile/Profile"; // Import Profile component
 
 function App() {
   const { authUser } = useAuthContext();
@@ -25,6 +28,10 @@ function App() {
           <Route
             path="/"
             element={authUser ? <Landing /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile"
+            element={authUser ? <Profile /> : <Navigate to="/login" />}
           />
           <Route
             path="/talkhome"
@@ -65,6 +72,14 @@ function App() {
           <Route
             path="/admin"
             element={authUser ? <Admin /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/payment"
+            element={authUser ? <Payment /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/leaderboard"
+            element={<Leaderboard />}
           />
           {/* //admin er jonno */}
         </Routes>

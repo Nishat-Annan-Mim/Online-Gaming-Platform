@@ -22,6 +22,13 @@ const Landing = () => {
               Admin Panel
             </button>
           )}
+          <button
+            className={styles["action-button"]}
+            onClick={() => navigate("/profile")}
+          >
+            <FaUser className={styles["button-icon"]} /> Profile
+          </button>
+          
 
           <button
             className={styles["action-button"]}
@@ -42,6 +49,22 @@ const Landing = () => {
           >
             Invite Friend
           </button>
+
+          <button
+            className={styles["action-button"]}
+            onClick={() => navigate("/payment")}
+          >
+            Payment Center
+          </button>
+          
+          <button
+            className={styles["action-button"]}
+            onClick={handleLeaderboardClick}
+          >
+            🏆 Leaderboard
+          </button>
+
+
         </div>
       </main>
 

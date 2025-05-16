@@ -60,6 +60,8 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 import playOnlineGameRoutes from "./routes/playonlinegame.routes.js"; // Import the play online game routes
 import downloadGameRoutes from "./routes/downloadgame.routes.js"; // Import the download game routes
 import adminRoutes from "./routes/admin.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
+import leaderboardRoutes from "./routes/leaderboard.routes.js";
 
 dotenv.config();
 
@@ -206,6 +208,8 @@ app.use("/api/game", gameRoutes);
 app.use("/api/playonlinegame", playOnlineGameRoutes);
 app.use("/api/downloadgame", downloadGameRoutes); // Add this line to use the download game routes
 app.use("/api/admin", adminRoutes);
+app.use("/api/payment", paymentRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
 
 // Start the server with Socket.IO support
 server.listen(PORT, () => {
