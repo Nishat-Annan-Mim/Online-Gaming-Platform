@@ -1,0 +1,144 @@
+.review-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: #111;
+}
+
+.review-page h1 {
+    text-align: center;
+    color: #111;
+    margin-bottom: 2rem;
+}
+
+.review-filter {
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #111;
+}
+
+.review-filter select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    color: #111;
+}
+
+.review-form {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #111;
+}
+
+.review-form h2 {
+    margin-bottom: 1.5rem;
+    color: #111;
+}
+
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #111;
+    background: #fff;
+}
+
+.review-form textarea::placeholder {
+    color: #555;
+}
+
+.rating-input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: #111;
+}
+
+.rating-input input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #111;
+    background: #fff;
+}
+
+.review-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.review-form button:hover {
+    background-color: #0056b3;
+}
+
+.reviews-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.review-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #111;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    color: #111;
+}
+
+.review-header h3 {
+    margin: 0;
+    color: #111;
+}
+
+.review-meta {
+    display: flex;
+    gap: 1rem;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+.rating {
+    color: #f0ad4e;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+} 

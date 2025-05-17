@@ -1,8 +1,8 @@
 import React from "react";
-import { useContext } from "react";
-import styles from "./Landing.module.css"; // ✅ Correct import
+import styles from "./Landing.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
+import { FaUser } from "react-icons/fa";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -22,13 +22,13 @@ const Landing = () => {
               Admin Panel
             </button>
           )}
+
           <button
             className={styles["action-button"]}
             onClick={() => navigate("/profile")}
           >
             <FaUser className={styles["button-icon"]} /> Profile
           </button>
-          
 
           <button
             className={styles["action-button"]}
@@ -43,6 +43,7 @@ const Landing = () => {
           >
             Talk with Friends
           </button>
+
           <button
             className={styles["action-button"]}
             onClick={() => navigate("/invite")}
@@ -56,15 +57,20 @@ const Landing = () => {
           >
             Payment Center
           </button>
-          
+
           <button
             className={styles["action-button"]}
-            onClick={handleLeaderboardClick}
+            onClick={() => navigate("/leaderboard")}
           >
             🏆 Leaderboard
           </button>
 
-
+          <button
+            className={styles["action-button"]}
+            onClick={() => navigate("/reviews")}
+          >
+            📝 Game Reviews
+          </button>
         </div>
       </main>
 

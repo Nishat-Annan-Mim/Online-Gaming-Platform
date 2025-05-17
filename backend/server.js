@@ -50,6 +50,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import emailRoutes from "./routes/email.routes.js";
 import gameRoutes from "./routes/game.routes.js";
@@ -62,6 +64,9 @@ import downloadGameRoutes from "./routes/downloadgame.routes.js"; // Import the 
 import adminRoutes from "./routes/admin.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import leaderboardRoutes from "./routes/leaderboard.routes.js";
+import profileRoutes from "./routes/profile.routes.js";
+import notificationRoutes from "./routes/notification.routes.js";
+import reviewRoutes from "./routes/review.routes.js";
 
 dotenv.config();
 
@@ -210,6 +215,12 @@ app.use("/api/downloadgame", downloadGameRoutes); // Add this line to use the do
 app.use("/api/admin", adminRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/leaderboard", leaderboardRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/reviews", reviewRoutes);
+
+// Serve static files from uploads directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Start the server with Socket.IO support
 server.listen(PORT, () => {

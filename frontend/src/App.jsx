@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import TalkHome from "./pages/talkHome/talkHome";
-import Login from "./pages/login/login";
+import Login from "./pages/login/login";  
 import SignUp from "./pages/signup/SignUp";
 import Landing from "./pages/landing/Landing"; // <-- Import Landing
 import EmailSend from "./pages/emailsend/EmailSend";
@@ -16,7 +16,8 @@ import DownloadGame from "./pages/downloadgame/Downloadgame"; // Import Download
 import Admin from "./pages/admin/Admin"; // Import the Admin component :admin
 import Payment from "./pages/payment/Payment";
 import Leaderboard from "./pages/leaderboard/Leaderboard";
-import Profile from "./pages/profile/Profile"; // Import Profile component
+import Profile from "./pages/profile/Profile";
+import Review from "./pages/review/Review";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -77,9 +78,13 @@ function App() {
             path="/payment"
             element={authUser ? <Payment /> : <Navigate to="/login" />}
           />
-          <Route
+           <Route
             path="/leaderboard"
-            element={<Leaderboard />}
+            element={authUser ? <Leaderboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/reviews"
+            element={<Review />}
           />
           {/* //admin er jonno */}
         </Routes>
