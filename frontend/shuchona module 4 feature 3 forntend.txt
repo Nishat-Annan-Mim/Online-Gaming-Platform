@@ -1,0 +1,65 @@
+components/NotificationList.js
+
+
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const NotificationList = ({ userId }) => {
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const fetchNotifications = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/notifications/${userId}`);
+      setNotifications(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const markAllAsRead = async () => {
+    try {
+      await axios.put(`http://localhost:5000/api/notifications/read/${userId}`);
+      fetchNotifications();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return (
+    <div className="p-4 max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-2">Notifications</h2>
+      <button onClick={markAllAsRead} className="mb-4 bg-blue-500 text-white px-3 py-1 rounded">Mark All as Read</button>
+      <ul className="space-y-2">
+        {notifications.map((n) => (
+          <li key={n._id} className={`p-2 rounded ${n.read ? 'bg-gray-200' : 'bg-yellow-100'}`}>
+            {n.message} <span className="text-xs text-gray-500">({n.type})</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default NotificationList;
+
+
+App.js
+
+import React from 'react';
+import NotificationList from './components/NotificationList';
+
+function App() {
+  const userId = "user123"; // Ideally from auth
+
+  return (
+    <div className="App">
+      <NotificationList userId={userId} />
+    </div>
+  );
+}
+
+export default App;

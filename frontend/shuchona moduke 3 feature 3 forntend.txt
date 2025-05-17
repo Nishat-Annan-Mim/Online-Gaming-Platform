@@ -1,0 +1,95 @@
+app,js
+
+import React, { useState, useEffect } from 'react';
+import AchievementList from './components/AchievementList';
+import AddAchievementForm from './components/AddAchievementForm';
+import './App.css';
+
+function App() {
+  const [achievements, setAchievements] = useState([]);
+  const userId = 'user123'; // Simulated logged-in user
+
+  const fetchAchievements = async () => {
+    const res = await fetch(`http://localhost:5000/api/achievements/${userId}`);
+    const data = await res.json();
+    setAchievements(data);
+  };
+
+  useEffect(() => {
+    fetchAchievements();
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>My Achievements</h1>
+      <AddAchievementForm userId={userId} onAdd={fetchAchievements} />
+      <AchievementList achievements={achievements} />
+    </div>
+  );
+}
+
+export default App;
+
+components/acheivementlist.js
+
+import React from 'react';
+
+function AchievementList({ achievements }) {
+  return (
+    <div>
+      <h2>Achievements:</h2>
+      <ul>
+        {achievements.map((ach) => (
+          <li key={ach._id}>
+            <strong>{ach.title}</strong>: {ach.description} 
+            <br /><small>{new Date(ach.achievedOn).toLocaleDateString()}</small>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default AchievementList;
+
+components/addachievementform.js
+
+import React, { useState } from 'react';
+
+function AddAchievementForm({ userId, onAdd }) {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await fetch('http://localhost:5000/api/achievements', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, title, description }),
+    });
+    setTitle('');
+    setDescription('');
+    onAdd();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input 
+        type="text" 
+        placeholder="Title" 
+        value={title}
+        onChange={(e) => setTitle(e.target.value)} 
+        required 
+      />
+      <input 
+        type="text" 
+        placeholder="Description" 
+        value={description}
+        onChange={(e) => setDescription(e.target.value)} 
+      />
+      <button type="submit">Add Achievement</button>
+    </form>
+  );
+}
+
+export default AddAchievementForm;

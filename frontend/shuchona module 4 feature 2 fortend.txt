@@ -1,0 +1,60 @@
+/frontend/src/App.js
+
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
+
+function App() {
+  const [email, setEmail] = useState('');
+  const [streaming, setStreaming] = useState(false);
+  const videoRef = useRef();
+
+  const startStreaming = async () => {
+    const mediaStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+    videoRef.current.srcObject = mediaStream;
+
+    // Send stream to backend to retrieve RTMP info
+    const res = await axios.get(`http://localhost:5000/api/stream/info/${email}`);
+    console.log('RTMP Stream Info:', res.data);
+
+    // Here, stream data could be sent to an RTMP server that relays it to Twitch/YouTube
+    setStreaming(true);
+  };
+
+  const stopStreaming = () => {
+    const stream = videoRef.current.srcObject;
+    stream.getTracks().forEach(track => track.stop());
+    setStreaming(false);
+  };
+
+  return (
+    <div className="p-5">
+      <h1 className="text-xl mb-4">Stream Your Gameplay</h1>
+      <input
+        type="email"
+        placeholder="Your email"
+        className="border p-2"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <div className="mt-4">
+        <button onClick={startStreaming} className="bg-green-500 text-white p-2 mr-2">Start Streaming</button>
+        <button onClick={stopStreaming} className="bg-red-500 text-white p-2">Stop Streaming</button>
+      </div>
+      <video ref={videoRef} autoPlay controls className="mt-4 w-full border" />
+    </div>
+  );
+}
+
+export default App;
+
+ Twitch OAuth (Frontend URL)
+
+https://id.twitch.tv/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=channel:read:stream_key
+
+
+ .env Example (Backend)
+
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/gameplatform
+TWITCH_CLIENT_ID=your_client_id
+TWITCH_SECRET=your_client_secret
+TWITCH_REDIRECT_URI=http://localhost:3000/twitch-callback

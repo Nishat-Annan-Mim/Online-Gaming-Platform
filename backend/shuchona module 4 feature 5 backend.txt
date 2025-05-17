@@ -1,0 +1,67 @@
+server.js – Entry Point
+
+const express = require('express');
+const mongoose = require('mongoose');
+const backupRoutes = require('./routes/backupRoutes');
+const app = express();
+const PORT = 5000;
+
+app.use(express.json());
+app.use('/api/backup', backupRoutes);
+
+mongoose.connect('mongodb://localhost:27017/gamePlatform', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('MongoDB connected');
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}).catch(err => console.error(err));
+
+
+models/UserData.js – Mongoose Schema
+
+const mongoose = require('mongoose');
+
+const UserDataSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
+  gameProgress: { type: Object, required: true },
+  timestamp: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('UserData', UserDataSchema);
+
+
+routes/backupRoutes.js – API Routes
+
+const express = require('express');
+const router = express.Router();
+const UserData = require('../models/UserData');
+
+// Save backup
+router.post('/save', async (req, res) => {
+  const { userId, gameProgress } = req.body;
+
+  try {
+    const backup = new UserData({ userId, gameProgress });
+    await backup.save();
+    res.status(200).json({ message: 'Backup successful' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error saving backup', error: err.message });
+  }
+});
+
+// Restore backup
+router.get('/restore/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const latestBackup = await UserData.findOne({ userId }).sort({ timestamp: -1 });
+    if (!latestBackup) return res.status(404).json({ message: 'No backup found' });
+
+    res.status(200).json(latestBackup);
+  } catch (err) {
+    res.status(500).json({ message: 'Error restoring backup', error: err.message });
+  }
+});
+
+module.exports = router;
