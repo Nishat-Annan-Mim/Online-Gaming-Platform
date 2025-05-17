@@ -78,6 +78,14 @@ const Landing = () => {
           >
             🎮 Game Library
           </button>
+
+          <button
+            className={styles["action-button"]}
+            onClick={() => navigate("/recommendations")}
+          >
+            🧠 Game Recommendations
+          </button>
+
         </div>
       </main>
 
