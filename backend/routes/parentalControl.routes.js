@@ -2,13 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const auth = require('../middleware/protectRoute');
+const protectRoute = require('../middleware/protectRoute');
 const User = require('../models/User');
 
 // @route   GET /api/parental-controls
 // @desc    Get current user's parental control settings
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get('/', protectRoute, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('parentalControls');
     if (!user) return res.status(404).json({ msg: 'User not found' });
@@ -25,7 +25,7 @@ router.get('/', auth, async (req, res) => {
 router.put(
   '/',
   [
-    auth,
+    protectRoute,
     check('ageLimit', 'Age limit must be a non-negative number')
       .optional()
       .isInt({ min: 0 })
