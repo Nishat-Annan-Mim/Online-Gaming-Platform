@@ -226,8 +226,8 @@ app.use("/api/game", gameRoutes);
 app.use("/api/playonlinegame", playOnlineGameRoutes);
 app.use("/api/downloadgame", downloadGameRoutes); // Add this line to use the download game routes
 app.use("/api/admin", adminRoutes);
-app.use('/api/parental-controls', parentalControlRoutes);
-app.use('/api/recommendations', recommendationRoutes);
+app.use('/api/parentalControl', parentalControlRoutes);
+app.use('/api/recommendation', recommendationRoutes);
 
 // Start the server with Socket.IO support
 server.listen(PORT, () => {
