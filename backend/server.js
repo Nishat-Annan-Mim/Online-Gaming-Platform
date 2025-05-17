@@ -60,6 +60,8 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 import playOnlineGameRoutes from "./routes/playonlinegame.routes.js"; // Import the play online game routes
 import downloadGameRoutes from "./routes/downloadgame.routes.js"; // Import the download game routes
 import adminRoutes from "./routes/admin.routes.js";
+import parentalControlRoutes from "./routes/parentalControl.routes.js";
+import recommendationRoutes from "./routes/recommendation.routes.js";
 
 dotenv.config();
 
