@@ -1,0 +1,84 @@
+App.js
+
+import React from 'react';
+import BackupForm from './BackupForm';
+import RestoreBackup from './RestoreBackup';
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Game Backup System</h1>
+      <BackupForm />
+      <RestoreBackup />
+    </div>
+  );
+}
+
+export default App;
+
+
+BackupForm.js
+
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+function BackupForm() {
+  const [userId, setUserId] = useState('');
+  const [gameProgress, setGameProgress] = useState('{}');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:5000/api/backup/save', {
+        userId,
+        gameProgress: JSON.parse(gameProgress),
+      });
+      alert('Backup successful!');
+    } catch (err) {
+      alert('Backup failed!');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input value={userId} onChange={(e) => setUserId(e.target.value)} placeholder="User ID" required />
+      <textarea value={gameProgress} onChange={(e) => setGameProgress(e.target.value)} placeholder="Game Progress JSON" required />
+      <button type="submit">Backup</button>
+    </form>
+  );
+}
+
+export default BackupForm;
+
+
+RestoreBackup.js
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+function RestoreBackup() {
+  const [userId, setUserId] = useState('');
+  const [backupData, setBackupData] = useState(null);
+
+  const handleRestore = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/backup/restore/${userId}`);
+      setBackupData(res.data);
+    } catch (err) {
+      alert('No backup found');
+    }
+  };
+
+  return (
+    <div>
+      <input value={userId} onChange={(e) => setUserId(e.target.value)} placeholder="User ID" />
+      <button onClick={handleRestore}>Restore Backup</button>
+      {backupData && (
+        <pre>{JSON.stringify(backupData, null, 2)}</pre>
+      )}
+    </div>
+  );
+}
+
+export default RestoreBackup;
