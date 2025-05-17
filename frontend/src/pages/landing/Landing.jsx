@@ -71,6 +71,13 @@ const Landing = () => {
           >
             📝 Game Reviews
           </button>
+
+          <button
+            className={styles["action-button"]}
+            onClick={() => navigate("/games")}
+          >
+            🎮 Game Library
+          </button>
         </div>
       </main>
 
