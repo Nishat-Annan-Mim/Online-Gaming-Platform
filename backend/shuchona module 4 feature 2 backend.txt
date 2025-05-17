@@ -1,0 +1,101 @@
+/backend/server.js
+
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
+const streamRoutes = require('./routes/stream');
+
+dotenv.config();
+const app = express();
+app.use(express.json());
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log(err));
+
+app.use('/api/auth', authRoutes);
+app.use('/api/stream', streamRoutes);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+/backend/models/User.js
+
+const mongoose = require('mongoose');
+
+const UserSchema = new mongoose.Schema({
+  email: String,
+  twitch: {
+    accessToken: String,
+    refreshToken: String,
+    streamKey: String
+  },
+  youtube: {
+    accessToken: String,
+    refreshToken: String,
+    streamUrl: String
+  }
+});
+
+module.exports = mongoose.model('User', UserSchema);
+
+
+/backend/routes/auth.js (simplified Twitch example)
+
+const express = require('express');
+const router = express.Router();
+const axios = require('axios');
+const User = require('../models/User');
+
+router.post('/twitch', async (req, res) => {
+  const { code, email } = req.body;
+  try {
+    const response = await axios.post(`https://id.twitch.tv/oauth2/token`, null, {
+      params: {
+        client_id: process.env.TWITCH_CLIENT_ID,
+        client_secret: process.env.TWITCH_SECRET,
+        code,
+        grant_type: 'authorization_code',
+        redirect_uri: process.env.TWITCH_REDIRECT_URI
+      }
+    });
+
+    const { access_token, refresh_token } = response.data;
+
+    // Twitch requires calling /helix/streams/key to get stream key (hypothetical)
+    const user = await User.findOneAndUpdate(
+      { email },
+      { twitch: { accessToken: access_token, refreshToken: refresh_token } },
+      { upsert: true, new: true }
+    );
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Auth failed');
+  }
+});
+
+module.exports = router;
+
+
+/backend/routes/stream.js
+
+
+const express = require('express');
+const router = express.Router();
+const User = require('../models/User');
+
+router.get('/info/:email', async (req, res) => {
+  const user = await User.findOne({ email: req.params.email });
+  if (!user) return res.status(404).send('User not found');
+
+  res.json({
+    twitchStreamKey: user.twitch?.streamKey,
+    youtubeStreamUrl: user.youtube?.streamUrl
+  });
+});
+
+module.exports = router;
