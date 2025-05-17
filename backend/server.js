@@ -67,6 +67,8 @@ import leaderboardRoutes from "./routes/leaderboard.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import notificationRoutes from "./routes/notification.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
+import parentalControlRoutes from "./routes/parentalControl.routes.js";
+import recommendationRoutes from "./routes/recommendation.routes.js";
 
 dotenv.config();
 
@@ -103,7 +105,27 @@ io.on("connection", (socket) => {
         players: [],
       };
     }
+  // Text chat: broadcasting messages to the room
+  socket.on('sendMessage', ({ room, message }) => {
+    io.to(room).emit('receiveMessage', { message, sender: socket.id });
+  });
 
+  // Voice chat signaling
+  // These events relay WebRTC SDP offers/answers and ICE candidates
+  socket.on('voice-offer', ({ sdp, caller, target }) => {
+    io.to(target).emit('voice-offer', { sdp, caller });
+  });
+  socket.on('voice-answer', ({ sdp, callee, target }) => {
+    io.to(target).emit('voice-answer', { sdp, callee });
+  });
+  socket.on('ice-candidate', ({ candidate, target }) => {
+    io.to(target).emit('ice-candidate', { candidate });
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`User disconnected: ${socket.id}`);
+  });
+});
     // Assign the player symbol ('X' or 'O')
     const playerSymbol = gameRooms[roomId].players.length === 0 ? "X" : "O";
     gameRooms[roomId].players.push({ id: socket.id, symbol: playerSymbol });
@@ -218,6 +240,8 @@ app.use("/api/leaderboard", leaderboardRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use('/api/parentalControls', parentalControlRoutes);
+app.use('/api/recommendations', recommendationRoutes);
 
 // Serve static files from uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
